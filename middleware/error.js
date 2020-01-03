@@ -16,7 +16,11 @@ const errorHandler = (err, req, res, next) => {
 
   // Moongoose duplicate key
   if (err.code === 11000) {
-    const message = 'Duplicate field entered';
+    // const message = 'Duplicate field entered';
+    const message = err.errmsg.includes('email')
+      ? 'Duplicate email entered'
+      : 'Duplicate field entered';
+
     error = new ErrorResponse(message, 400);
   }
 
